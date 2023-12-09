@@ -3,5 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class Control:
-    index: int
-    level: int
+    def __init__(self, index, level):
+        self.index = index
+        self.level = level

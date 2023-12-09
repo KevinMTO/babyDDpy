@@ -58,7 +58,7 @@ one.set_node_hash()
 
 
 class Edge:
-    def __init__(self, weight, next_node, father_node=None):
+    def __init__(self, weight=0. + 0.j, next_node=None, father_node=None):
         self.weight = weight
         self.next_node = next_node
         self.father_node = father_node
@@ -77,3 +77,19 @@ class Edge:
 
     def set_father_node(self, node):
         self.father_node = node
+
+    def copy(self):
+        # Create a new instance of Edge with the same attributes
+        copied_edge = Edge(self.weight, self.next_node, self.father_node)
+        copied_edge.isterminal = self.isterminal
+        return copied_edge
+
+
+class MEdge(Edge):
+    def __init__(self, weight=0. + 0.j, next_node=None, father_node=None):
+        super().__init__(weight=weight, next_node=next_node, father_node=father_node)
+
+
+class VEdge(Edge):
+    def __init__(self, weight=0. + 0.j, next_node=None, father_node=None):
+        super().__init__(weight=weight, next_node=next_node, father_node=father_node)

@@ -1,22 +1,41 @@
-from ddsrc.edge import Edge, Node
+from ddsrc.edge_nodes import Edge, Node
 
 
 class ComputeTable():
-    def lookup(self, x, y):
-        # Implement your lookup logic here
-        pass
+    def __init__(self):
+        self.table = {}
 
-    def insert(self, x, y, result):
-        # Implement your insertion logic here
-        pass
+    def insert(self, left_operand: Edge, right_operand: Edge, result):
+        key = hash((left_operand.next_node.get_node_hash(), right_operand.next_node.get_node_hash()))
+        self.table[key] = {'left_operand': left_operand, 'right_operand': right_operand, 'result': result}
+
+    def lookup(self, left_operand: Edge, right_operand: Edge):
+        result_type = type(right_operand)
+        result = result_type()
+
+        key = hash((left_operand.next_node.get_node_hash(), right_operand.next_node.get_node_hash()))
+        entry = self.table.get(key, {})
+
+        if entry.get('result', None) is None:
+            return result
+        if entry.get('left_operand') != left_operand or entry.get('right_operand') != right_operand:
+            return result
+
+        return entry['result']
+
+
+class AdditionTable(ComputeTable):
+    def __init__(self):
+        super().__init__()
+
+
+class MultTable(ComputeTable):
+    def __init__(self):
+        super().__init__()
 
 
 class UniqueTable:
     def __init__(self):
-        self.node_count = 0
-        self.collisions = 0
-        self.hits = 0
-        self.lookups = 0
         self.tables = {}
         self.available = {}  # For reusing nodes
 
@@ -36,7 +55,6 @@ class UniqueTable:
         if edge.next_node is None:
             return edge
 
-        self.lookups += 1
         key = edge.next_node.get_node_hash()
         node_index = edge.next_node.index
 
@@ -52,8 +70,6 @@ class UniqueTable:
                     # Put node pointed to by edge.p on available chain
                     self.available[edge.next_node.get_node_hash()] = edge.next_node
 
-                self.hits += 1
-
                 # Variables should stay the same
                 assert node_reference.index == edge.next_node.index
 
@@ -64,11 +80,9 @@ class UniqueTable:
 
                 return Edge(edge.weight, node_reference)
 
-            self.collisions += 1
             node_reference = node_reference.next_unique
 
         edge.next_node.next_unique = self.tables.setdefault(node_index, {}).get(key, None)
         self.tables.setdefault(node_index, {})[key] = edge.next_node
-        self.node_count += 1
 
         return edge
