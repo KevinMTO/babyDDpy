@@ -234,7 +234,7 @@ class DDPackage:
             assert edge.next_node.index == idx - 1 or edge.is_terminal()
 
         # Placeholder for normalize function
-        new_edge = self.normalize(new_edge)
+        #new_edge = self.normalize(new_edge)
         assert new_edge.next_node.index == idx or new_edge.is_terminal()
 
         looked_up_edge = unique_table.lookup(new_edge)
@@ -453,7 +453,7 @@ class DDPackage:
         controls = [Control(cq, 1) for cq in controls]
         return self.makeGateDD(gate_matrix, num_qubits, controls, target)
 
-    def apply_gate(self, gate: MEdge, state: VEdge) -> Edge:
+    def apply_gate(self, gate: MEdge, state: VEdge) -> VEdge:
         return self.multiply(gate, state)
 
     def get_amplitude(self, state: VEdge, bitstring: str) -> np.complex128:

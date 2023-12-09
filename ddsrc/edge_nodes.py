@@ -80,7 +80,7 @@ class Edge:
 
     def copy(self):
         # Create a new instance of Edge with the same attributes
-        copied_edge = Edge(self.weight, self.next_node, self.father_node)
+        copied_edge = type(self)(self.weight, self.next_node, self.father_node)
         copied_edge.isterminal = self.isterminal
         return copied_edge
 

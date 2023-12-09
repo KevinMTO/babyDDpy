@@ -5,8 +5,6 @@ tolerance = 1e-16
 
 
 class VEdgeNormalization:
-
-
     """
     def normalize(edge: VEdge) -> VEdge:
         sum_norm2 = 0 #np.abs(edge.next_node.edges[0].weight) ** 2
