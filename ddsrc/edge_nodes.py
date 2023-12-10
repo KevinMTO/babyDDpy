@@ -9,25 +9,8 @@ class Node:
         self.identity = None
         self.next_unique = None
 
-    def add_successor(self, edge_weight, next_node):
-        edge = Edge(weight=edge_weight, next_node=next_node, father_node=self)
-        self.edges.append(edge)
-        next_node.father = edge
-
-    def remove_successor(self, edge):
-        if edge in self.edges:
-            self.edges.remove(edge)
-            if edge.next_node.father == edge:
-                edge.next_node.father = None
-
-    def set_father(self, edge):
-        self.father = edge
-
     def set_terminal_up(self):
         self.terminal = True
-
-    def remove_father(self):
-        self.father = None
 
     def set_node_hash(self):
         successor_hashes = [e.next_node.dd_hash for e in self.edges]
@@ -43,10 +26,6 @@ class Node:
 
     def is_terminal(self):
         return self.terminal
-
-    def __del__(self):
-        # make this recursive
-        print(f"Node {self.index} is being deleted.")
 
 
 zero = Node("zero")
