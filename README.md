@@ -12,19 +12,19 @@ The library supports the usage of qudits and qubits, a.k.a. mixed-dimensional sy
 
 ```
 num_qubits = 5
-        dd = DDPackage(num_qubits)
-        zero = dd.create_zero_state(num_qubits)
-        print(dd.measure_all(zero))
+dd = DDPackage(num_qubits)
+zero = dd.create_zero_state(num_qubits)
+print(dd.measure_all(zero))
 
-        hadamard = dd.create_single_qubit_gate(num_qubits, 1, 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]],
-                                                                                        dtype=np.complex128))
-        
-        cx = dd.create_controlled_single_qubit_gate(num_qubits, [1], 0, np.array([[0, 1], [1, 0]]))
+hadamard = dd.create_single_qubit_gate(num_qubits, 1, 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]],
+                                                                                dtype=np.complex128))
 
-        psi = dd.apply_gate(hadamard, zero)
-        psi = dd.apply_gate(hadamard, psi)
-        psi = dd.apply_gate(cx, psi)
-        print(dd.measure_all(psi))
+cx = dd.create_controlled_single_qubit_gate(num_qubits, [1], 0, np.array([[0, 1], [1, 0]]))
+
+psi = dd.apply_gate(hadamard, zero)
+psi = dd.apply_gate(hadamard, psi)
+psi = dd.apply_gate(cx, psi)
+print(dd.measure_all(psi))
 ```
 # Contributing
 
